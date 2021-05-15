@@ -1,0 +1,36 @@
+<%= flash[:notice] %>
+<!--p id ="notice"></p-->
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+      <h1>Editing Book</h1>
+      <!--ここにformを入れる-->
+      <%= form_with model:@book, local:true do |f| %>
+        <% if @book.errors.any? %><!-- @bookのエラー情報チェック -->
+          <div id="error_explanation">
+            <!-- 下記は@bookのエラーの数をカウントして数値を出力 -->
+            <h3><%= @book.errors.count %>errors prohibited this book from being saved:</h3>
+            <!-- @bookのエラーメッセージを表示する -->
+            <ul>
+              <% @book.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>  
+          </div>
+        <% end %>
+        <div class="form-group">
+          <label for="book_title">Title</label>
+          <%= f.text_field :title, class: "form-control book_title" %>
+        </div>
+        <div class="form-group">
+          <label for="book_opinion">Opinion</label>
+          <%= f.text_area :body, class: "form-control book_body" %>
+        </div>
+        <div class="form-group">
+          <%= f.submit 'Update Book', class: "btn btn-success" %>
+        </div>
+        <%= link_to "Show", book_path, class: book_path(@book) %> | <%= link_to "Back", books_path, class: "back" %>
+      <% end %>
+    </div>
+  </div>
+</div>
