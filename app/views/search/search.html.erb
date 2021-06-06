@@ -1,0 +1,27 @@
+<div class="search-form">
+<%= form_with url: search_path, method: :get, local: :true do |f| %>
+  <%= f.select :range, options_for_select([['User'], ['Book']]) %><!--UserとBookの切り替えプルダウン-->
+  <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","start_match"], ["後方一致","back_match"], ["部分一致","partial_match"]]) %><!--完全一致と部分一致の切り替えプルダウン-->
+  <%= f.text_field :word %><!--入力する項目-->
+  <%= f.submit "検索" %>
+<% end %>
+</div>
+
+<% if @range == "User"%>
+  <ul>
+    <% @users.each do |user| %>
+    <li>
+      <%= user.name %>
+    </li>
+    <% end %>
+  </ul>
+<% else %>
+  <ul>
+    <% @books.each do |book| %>
+    <li>
+      <%= book.title %>
+      <%= book.body %>
+    </li>
+    <% end %>
+  </ul>
+<% end %>
